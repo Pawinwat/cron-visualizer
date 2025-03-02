@@ -25,7 +25,7 @@ A web-based tool to visualize and analyze cron expressions using charts. This ap
 ## **Installation & Setup**
 ### **1️⃣ Clone the repository**
 ```sh
-git clone https://github.com/your-username/cron-visualizer.git
+git clone https://github.com/painwat/cron-visualizer.git
 cd cron-visualizer
 ```
 
