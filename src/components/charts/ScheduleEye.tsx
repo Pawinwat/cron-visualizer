@@ -26,6 +26,7 @@ const ScheduleEye: React.FC<ScheduleEyeProps> = ({
       encode: { angle: 'time', radius: 'value' },
       label: { show: false },
       itemStyle: {
+        color:'red'
       },
     },
   ];
