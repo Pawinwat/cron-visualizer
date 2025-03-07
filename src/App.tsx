@@ -1,4 +1,4 @@
-import { Button, Col, ConfigProvider, Divider, Flex, Form, InputNumber, Layout, Row, Tag, Typography } from 'antd';
+import { Button, Col, ConfigProvider, Divider, Flex, Form, InputNumber, Layout, Row, Tag, ThemeConfig, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import ScheduleEye from './components/charts/ScheduleEye';
 import YearlyChart from './components/charts/YearlyChart';
@@ -21,7 +21,8 @@ const App: React.FC = () => {
   // const validDay = cronValid && (cronArr?.[1] != '*')
 
   const [darkMode, setDarkMode] = useState<boolean>(true);
-  const token = {
+  const token: ThemeConfig['token'] = {
+
     colorBgBase: darkMode ? palette.dark.bgColor : palette.light.bgColor,
     colorTextBase: darkMode ? '#f0f0f0' : '#000000',
     fontFamily: '"Courier New", Courier, monospace',
@@ -41,7 +42,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!validateCron(cronExpression)) return;
-    setRecentCrons(prev => [cronExpression, ...prev.filter(cron => cron !== cronExpression)].slice(0, 4));
+    setRecentCrons(prev => [cronExpression, ...prev.filter(cron => cron !== cronExpression)].slice(0, 3));
   }, [cronExpression]);
 
 
@@ -67,7 +68,7 @@ const App: React.FC = () => {
                 dir='row'
                 style={{
                   // width: '100%',
-                  marginBottom:'1vh'
+                  marginBottom: '1vh'
                 }}
                 align='center'
                 justify='center'
@@ -91,7 +92,7 @@ const App: React.FC = () => {
                     value={year}
                     placeholder="Year"
                     onChange={(value) => value && setYear(value)}
-                    style={{ width: '120px' }}
+                  // style={{ width: '120px' }}
                   />
                 </div>
 
@@ -104,7 +105,7 @@ const App: React.FC = () => {
                     value={timeZone}
                     placeholder="Offset"
                     onChange={(value) => setTimeZone(value || 0)}
-                    style={{ width: '120px' }}
+                    // style={{ width: '120px' }}
                     formatter={(value) => (value !== undefined && value > 0 ? `+${value}` : `${value}`)}
 
                   />
@@ -117,11 +118,21 @@ const App: React.FC = () => {
                     }}
                     align='center'
                     justify='center'
+                    wrap
                   >
-                    <Text style={{ color: darkMode ? '#f0f0f0' : '#000000', marginRight: '10px' }}>Recent:</Text>
 
                     {
-                      recentCrons?.map(cron => <Tag onClick={() => setCronExpression(cron)}>{cron}</Tag>)
+                      recentCrons?.map(cron => (
+                        <Tag
+                          key={`recent-${cron}`}
+                          onClick={() => setCronExpression(cron)}
+                          style={{
+                            cursor:'pointer'
+                          }}
+                        >
+                          {cron}
+                        </Tag>
+                      ))
                     }
                   </Flex>
                 </div>

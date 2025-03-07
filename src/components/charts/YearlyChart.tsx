@@ -17,35 +17,41 @@ const YearlyChart: React.FC<YearlyChartProps> = ({ cronExpression, year }) => {
     const days = useMemo(() => getCronRunDays(minCron, year), [minCron, year]);
 
     const option: echarts.EChartsOption = useMemo(() => ({
-      
+
         visualMap: {
             max: 1,
             type: 'piecewise',
             orient: 'horizontal',
             left: 'center',
             top: 25,
-            show:false
+            show: false,
+            inRange: {
+                color: [palette.main]
+            },
         },
         calendar: {
             range: year.toString(),
             cellSize: ['auto', 20],
-            yearLabel: { show: false },
-            monthLabel: { show: false },
-            
+            yearLabel: { show: true },
+            monthLabel: { show: true },
+
         },
         grid: {
             left: 10,
             right: 30,
-            top:0
+            top: 0
+        },
+        tooltip: {
+            valueFormatter(_value, dataIndex) {
+                return days?.[dataIndex]?.[0] || ''
+            },
         },
         series: [
             {
                 type: 'heatmap',
                 coordinateSystem: 'calendar',
                 data: days as any[],
-                itemStyle: {
-                    color: palette.main
-                }
+
             },
         ],
     }), [days, year]);
