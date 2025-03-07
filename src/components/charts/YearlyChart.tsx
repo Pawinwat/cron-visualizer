@@ -24,16 +24,19 @@ const YearlyChart: React.FC<YearlyChartProps> = ({ cronExpression, year }) => {
             orient: 'horizontal',
             left: 'center',
             top: 25,
+            show:false
         },
         calendar: {
             range: year.toString(),
             cellSize: ['auto', 20],
             yearLabel: { show: false },
             monthLabel: { show: false },
+            
         },
         grid: {
             left: 10,
-            right: 30
+            right: 30,
+            top:0
         },
         series: [
             {

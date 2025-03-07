@@ -1,8 +1,7 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { Form, Input, Tooltip } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { validateCron } from '../../utils/cronUtils';
+import { Input, Tooltip } from 'antd';
 import { debounce } from 'lodash';
+import React, { useEffect, useState } from 'react';
 
 // Type definition for props
 interface CronTextFieldProps {
@@ -32,20 +31,7 @@ const CronTextField: React.FC<CronTextFieldProps> = ({ value, onChange, ...props
   }, [value]);
 
   return (
-    <Form.Item
-      name="cron"
-      validateTrigger="onBlur"
-      rules={[
-        {
-          validator: async (_, cron) => {
-            await validateCron(cron);
-          },
-        },
-      ]}
-      {...props}
-      style={{ width: '100%' }}
-    >
-      <Input
+    <Input
         value={inputValue}
         onChange={handleChange}
         placeholder="* * * * *"
@@ -65,8 +51,8 @@ const CronTextField: React.FC<CronTextFieldProps> = ({ value, onChange, ...props
             <InfoCircleOutlined />
           </Tooltip>
         }
+        { ...props}
       />
-    </Form.Item>
   );
 };
 

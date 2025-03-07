@@ -44,17 +44,21 @@ const ScheduleEye: React.FC<ScheduleEyeProps> = ({
       max: 1,
       axisLabel: {
         show: false
-      }
+      },
+      show:false
     },
     angleAxis: {
       type: 'category',
       startAngle: 90,
       axisTick: {
-        interval: 30
+        inside:true,
+        length:20,
+        // interval: 30
       },
       axisLabel: {
         interval: (_index: number, value: string) => value?.includes(':00')
-      }
+      },
+    
     },
     tooltip: {
       valueFormatter:()=>''

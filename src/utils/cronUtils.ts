@@ -3,15 +3,21 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc);
 
+
+export const isValidCron = (cronExpression:string)=>{
+  const cronArr = cronExpression?.split(' ')
+  return cronArr?.length===5
+
+}
 /**
  * Get the days of the year when the cron expression will run.
  * @param cron The cron expression.
  * @param year The year to check for cron runs.
  * @returns Array of days in the year when the cron expression will run, formatted as ["yyyy-MM-dd", 1].
  */
-export const getCronRunDays = (cron: string, year: number): [string, number][] => {
+export const getCronRunDays = (cronExpression: string, year: number): [string, number][] => {
     try {
-      const interval = cronParser.parse(cron, { currentDate: new Date(year, 0, 1) });
+      const interval = cronParser.parse(cronExpression, { currentDate: new Date(year, 0, 1) });
       const daysOfYear: Map<string, number> = new Map();
       const batchSize = 100; // Adjust batch size for performance
   
@@ -39,14 +45,16 @@ export const getCronRunDays = (cron: string, year: number): [string, number][] =
  * @param cron The cron expression.
  * @returns Promise that resolves if valid, rejects with an error message if invalid.
  */
-export const validateCron = (cron: string): Promise<void> => {
+export const validateCron = (cronExpression: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       try {
         // Attempt to parse the cron expression using cron-parser
-        cronParser.parse(cron);
+        cronParser.parse(cronExpression);
         resolve(); // Valid cron expression
+        return true;
       } catch (error) {
         reject('Invalid cron expression'); // Invalid cron expression
+        return false;
       }
     });
   };
@@ -59,10 +67,10 @@ export const validateCron = (cron: string): Promise<void> => {
  * @param cron The cron expression.
  * @returns Array of execution timestamps formatted as HH:mm.
  */
-export const getCronRunTimesInDay = (cron: string): string[] => {
+export const getCronRunTimesInDay = (cronExpression: string): string[] => {
     try {
       const startOfDay = dayjs().startOf('day').toDate(); // 00:00 of today
-      const interval = cronParser.parse(cron, { currentDate: startOfDay });
+      const interval = cronParser.parse(cronExpression, { currentDate: startOfDay });
   
       const timesSet: Set<string> = new Set();
       let date = interval.next(); // Get first occurrence
@@ -89,12 +97,12 @@ export const getCronRunTimesInDay = (cron: string): string[] => {
  * @param offset Timezone offset in hours (e.g., -5 for EST, +2 for CET).
  * @returns Array of execution times with values { time: 'HH:mm', value: 1 or 0 }.
  */
-export const getCronRunTimesWithValuesInDay = (cron: string, offset: number): { time: string; value: number }[] => {
+export const getCronRunTimesWithValuesInDay = (cronExpression: string, offset: number): { time: string; value: number }[] => {
     try {
       const startOfDayUTC = dayjs().utc().startOf('day'); // Get 00:00 UTC
       const startOfDayLocal = startOfDayUTC
   
-      const interval = cronParser.parse(cron, { currentDate:  dayjs().startOf('day').subtract(7,'day').toDate() });
+      const interval = cronParser.parse(cronExpression, { currentDate:  dayjs().startOf('day').subtract(7,'day').toDate() });
   
       const timesSet: Set<string> = new Set();
       let date = interval.next(); // Get first occurrence
