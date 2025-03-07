@@ -4,6 +4,7 @@ import { SeriesOption } from 'echarts';
 import React, { CSSProperties } from 'react';
 import { getCronRunTimesWithValuesInDay } from '../../utils/cronUtils';
 import BaseEchart from './base/BaseEchart';
+import { palette } from '../../theme';
 
 
 interface ScheduleEyeProps {
@@ -26,7 +27,7 @@ const ScheduleEye: React.FC<ScheduleEyeProps> = ({
       encode: { angle: 'time', radius: 'value' },
       label: { show: false },
       itemStyle: {
-        color:'red'
+        color:palette.main
       },
     },
   ];
@@ -55,7 +56,9 @@ const ScheduleEye: React.FC<ScheduleEyeProps> = ({
         interval: (_index: number, value: string) => value?.includes(':00')
       }
     },
-    tooltip: {},
+    tooltip: {
+      valueFormatter:()=>''
+    },
     series,  // Pass the typed series array here
     animation: false,
   };
