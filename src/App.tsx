@@ -41,7 +41,7 @@ const App: React.FC = () => {
   }, [darkMode]);
 
   useEffect(() => {
-    if (!validateCron(cronExpression)) return;
+    if (!isValidCron(cronExpression)) return;
     setRecentCrons(prev => [cronExpression, ...prev.filter(cron => cron !== cronExpression)].slice(0, 3));
   }, [cronExpression]);
 

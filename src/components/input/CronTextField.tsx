@@ -14,16 +14,16 @@ const CronTextField: React.FC<CronTextFieldProps> = ({ value, onChange, ...props
   const [inputValue, setInputValue] = useState(value);
 
   // Debounce the input change to avoid excessive updates
-  const debouncedChange = debounce((newValue: string) => {
-    onChange(newValue);
-  }, 500); // 500ms delay
+  // const debouncedChange = debounce((newValue: string) => {
+  //   onChange(newValue);
+  // }, 500); // 500ms delay
 
   // Update local state and trigger debounce
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    if (newValue?.split(' ')?.length < 5) return;
+    // if (newValue?.split(' ')?.length < 5) return;
     setInputValue(newValue);
-    debouncedChange(newValue);
+    onChange(newValue);
   };
 
   useEffect(() => {
