@@ -1,12 +1,12 @@
 import { Button, Col, ConfigProvider, Divider, Flex, Form, InputNumber, Layout, Row, Tag, ThemeConfig, Typography } from 'antd';
+import cronstrue from 'cronstrue';
 import React, { useEffect, useState } from 'react';
 import ScheduleEye from './components/charts/ScheduleEye';
 import YearlyChart from './components/charts/YearlyChart';
 import CronTextField from './components/input/CronTextField';
-import { palette } from './theme';
-import cronstrue from 'cronstrue';
 import useLocalStorageState from './hooks/useLocalStorageState';
-import { isValidCron, validateCron } from './utils/cronUtils';
+import { palette } from './theme';
+import { isValidCron } from './utils/cronUtils';
 
 const { Title, Text } = Typography;
 

@@ -1,6 +1,5 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Input, Tooltip } from 'antd';
-import { debounce } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
 // Type definition for props
