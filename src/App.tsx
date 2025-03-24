@@ -15,9 +15,9 @@ const App: React.FC = () => {
   const [recentCrons, setRecentCrons] = useLocalStorageState<string[]>('cronExpression', []);
   const [year, setYear] = useState<number>(new Date().getFullYear()); // Default to current year
   const [timeZone, setTimeZone] = useState<number>(0); // Default to UTC
-  const cronArr = cronExpression?.split(' ')
+  // const cronArr = cronExpression?.split(' ')
   const cronValid = isValidCron(cronExpression)
-  const validYear = cronValid && (cronArr?.[2] != '*')
+  const validYear = cronValid //&& (cronArr?.[2] != '*')
   // const validDay = cronValid && (cronArr?.[1] != '*')
 
   const [darkMode, setDarkMode] = useState<boolean>(true);
